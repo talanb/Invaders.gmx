@@ -634,7 +634,9 @@
     <option_xbone_title_id></option_xbone_title_id>
   </Options>
   <ConfigConstants>
-    <constants number="3">
+    <constants number="5">
+      <constant name="DIR_RIGHT">1</constant>
+      <constant name="DIR_LEFT">-1</constant>
       <constant name="PLAYER_RIGHT_BOUNDS">540</constant>
       <constant name="PLAYER_LEFT_BOUNDS">100</constant>
       <constant name="BULLET_ALARM">0</constant>

@@ -52,36 +52,37 @@ next_row_to_move = 4
           <argument>
             <kind>1</kind>
             <string>/// Move enemies
-var should_move_down = false
+if (!o_input.paused) {
+var right_x = scr_get_rightmost_enemy().x
+var left_x = scr_get_leftmost_enemy().x
+var will_move_down = false
 for (var col = 0; col &lt; 11; col++) {
     var e = ds_grid_get(enemies, col, next_row_to_move)
     if e == noone continue
     with (e) {
         image_index = !image_index    
         if dir &gt; 0 {
-            var left = scr_get_leftmost_enemy()
-            if left.x + (sprite_get_width(sprite_index)/2) + 2 &gt; 550 {
-                show_debug_message("hit right edge")
+            if right_x + (sprite_get_width(sprite_index)/2) + 2 &gt; 550 {
+                show_debug_message("Left edge - Will move down: " + scr_format_coordinate(o_enemy_mgr.next_row_to_move, col))
                 dir = -dir
-                should_move_down = true
+                y += 8
+                will_move_down = true
             }
         } else {
-            var right = scr_get_rightmost_enemy()
-            if right.x - (sprite_get_width(sprite_index)/2) - 2 &lt; 60 {
-                show_debug_message("hit left edge")
+            if left_x - (sprite_get_width(sprite_index)/2) - 2 &lt;= 60 {
+                show_debug_message("Right edge - Will move down: " + scr_format_coordinate(o_enemy_mgr.next_row_to_move, col))
                 dir = -dir
-                should_move_down = true
+                y += 8
+                will_move_down = true
             }
         }
-        x += dir * 2
+        if (!will_move_down)
+           x += dir * 2
     }
-}
-if should_move_down {
-    show_debug_message("Moving down")
-    scr_move_enemies_down(o_enemy_mgr.next_row_to_move)
 }
 next_row_to_move = scr_get_next_row_to_move(next_row_to_move)
 alarm[0] = room_speed / 10
+}
 </string>
           </argument>
         </arguments>

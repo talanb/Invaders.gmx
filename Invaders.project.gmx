@@ -3,8 +3,12 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
+  <datafiles number="16" name="datafiles"/>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\snd_laser</sound>
+    <sound>sound\snd_explosion</sound>
+  </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_player</sprite>
     <sprite>sprites\spr_bullet</sprite>
@@ -15,13 +19,17 @@
   <paths name="paths"/>
   <scripts name="scripts">
     <scripts name="Enemies">
-      <script>scripts\scr_get_leftmost_enemy.gml</script>
       <script>scripts\scr_get_rightmost_enemy.gml</script>
+      <script>scripts\scr_get_leftmost_enemy.gml</script>
       <script>scripts\scr_get_next_row_to_move.gml</script>
       <script>scripts\scr_move_enemies_down.gml</script>
+      <script>scripts\scr_move_row.gml</script>
     </scripts>
     <scripts name="Input">
       <script>scripts\scr_get_input.gml</script>
+    </scripts>
+    <scripts name="Debug">
+      <script>scripts\scr_format_coordinate.gml</script>
     </scripts>
   </scripts>
   <objects name="objects">

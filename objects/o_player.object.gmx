@@ -60,10 +60,12 @@ if o_input.left_key {
         exit
     } else {
         alarm[0] = 30
+        audio_play_sound(snd_laser, 10, false)
         instance_create(x, y - 20, o_bullet)
     }
 } else if o_input.start_key {
     o_enemy_mgr.alarm[0] = room_speed / 2
+    o_input.paused = false
 }
 </string>
           </argument>

@@ -55,6 +55,7 @@ vspeed = -8
 
 var e = instance_position(x, y, o_enemy)
 if (e != noone) {
+   audio_play_sound(snd_explosion, 11, false)
     score += 10
     with (e) {
         ds_grid_set(o_enemy_mgr.enemies, e.gridx, e.gridy, noone)
