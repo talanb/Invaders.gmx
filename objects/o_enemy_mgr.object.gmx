@@ -28,6 +28,7 @@
             <string>/// Initialize
 enemies = ds_grid_create(11, 5)
 next_row_to_move = 4
+dir = 1
 
 </string>
           </argument>
@@ -53,35 +54,47 @@ next_row_to_move = 4
             <kind>1</kind>
             <string>/// Move enemies
 if (!o_input.paused) {
-var right_x = scr_get_rightmost_enemy().x
-var left_x = scr_get_leftmost_enemy().x
-var will_move_down = false
-for (var col = 0; col &lt; 11; col++) {
-    var e = ds_grid_get(enemies, col, next_row_to_move)
-    if e == noone continue
-    with (e) {
-        image_index = !image_index    
-        if dir &gt; 0 {
-            if right_x + (sprite_get_width(sprite_index)/2) + 2 &gt; 550 {
-                show_debug_message("Left edge - Will move down: " + scr_format_coordinate(o_enemy_mgr.next_row_to_move, col))
-                dir = -dir
-                y += 8
-                will_move_down = true
+    var 
+        right_x = scr_get_rightmost_enemy().x,
+        left_x = scr_get_leftmost_enemy().x,
+        nextRightEdge = right_x + (sprite_get_width(sprite_index)/2) + 2,
+        nextLeftEdge = left_x - (sprite_get_width(sprite_index)/2) - 2,
+        moving_down = false;
+    
+    dv("dir", dir);
+    dv("nextRightEdge", nextRightEdge);
+    dv("nextLeftEdge", nextLeftEdge);
+    
+    if (dir == DIR_RIGHT) {
+       if (nextRightEdge &gt; 550) {
+            with (o_enemy_parent) {
+                   y += 8;
             }
-        } else {
-            if left_x - (sprite_get_width(sprite_index)/2) - 2 &lt;= 60 {
-                show_debug_message("Right edge - Will move down: " + scr_format_coordinate(o_enemy_mgr.next_row_to_move, col))
-                dir = -dir
-                y += 8
-                will_move_down = true
-            }
-        }
-        if (!will_move_down)
-           x += dir * 2
+            dir = -dir;
+            show_debug_message("moving down: right");
+            moving_down = true;
+       } 
+    } else {
+      if (nextLeftEdge &lt; 60) {
+           with (o_enemy_parent) {
+               y += 8;
+           }
+           dir = -dir;
+           show_debug_message("moving_down: left");
+           moving_down = true;
+      }
+      
     }
-}
-next_row_to_move = scr_get_next_row_to_move(next_row_to_move)
-alarm[0] = room_speed / 10
+     
+    if (!moving_down) {
+       
+       with (o_enemy_parent) {
+            x += other.dir * 2;
+            image_index = !image_index
+       } moving_down = false;
+    }
+    
+    alarm[0] = room_speed / 2
 }
 </string>
           </argument>

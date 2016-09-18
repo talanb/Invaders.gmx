@@ -30,6 +30,7 @@
     </scripts>
     <scripts name="Debug">
       <script>scripts\scr_format_coordinate.gml</script>
+      <script>scripts\dv.gml</script>
     </scripts>
   </scripts>
   <objects name="objects">
@@ -39,6 +40,7 @@
     <object>objects\o_enemy</object>
     <object>objects\o_enemy_mgr</object>
     <object>objects\o_scoreboard</object>
+    <object>objects\o_enemy_parent</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\r_level1</room>
